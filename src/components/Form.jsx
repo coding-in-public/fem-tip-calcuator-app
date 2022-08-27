@@ -1,18 +1,22 @@
+import { useState } from 'react';
+
 import person  from "../assets/images/icon-person.svg";
 import dollar  from "../assets/images/icon-dollar.svg";
 
-const Form = ({ }) => {
+const Form = ({ bill, setBill, setTip, people, setPeople }) => {
+
+  const handleSelectedTip = (e) => {
+    setTip(+e.target.value);
+  }
+
   return (
     <div className="form">
       <div className="label-group">
         <div className="label-wrapper">
           <label className="label" htmlFor="bill">Bill</label>
-          {/* <p className="error">{
-            showBillAmtError ? "Please enter numbers only" : ""
-          }</p> */}
         </div>
         <div className="number-wrapper">
-          <input type="text" className="number-input" id="bill" />
+          <input type="number" className="number-input" id="bill" onInput={(e) => setBill(+e.target.value)} value={bill} />
           <img src={dollar} aria-hidden="true" className="icon" />
         </div>
       </div>
@@ -21,38 +25,41 @@ const Form = ({ }) => {
         <p className="label">Selected Tip %</p>
         <div className="tip-amount-wrapper">
           <div className="tip-amount">
-            <input type="radio" name="tip" value=".05"/>
-            <div className="tip-btn">5%</div>
+            <input type="radio" onInput={handleSelectedTip} id="input1" className="tip-input" name="tip" value="5"/>
+            <label className="tip-btn" htmlFor="input1">5%</label>
           </div>
           <div className="tip-amount">
-            <input type="radio" name="tip" value=".1"/>
-            <div className="tip-btn">10%</div>
+            <input type="radio" onInput={handleSelectedTip} id="input2" className="tip-input" name="tip" value="10"/>
+            <label className="tip-btn" htmlFor="input2">10%</label>
           </div>
           <div className="tip-amount">
-            <input type="radio" name="tip" value=".15"/>
-            <div className="tip-btn">15%</div>
+            <input type="radio" onInput={handleSelectedTip} id="input3" className="tip-input" name="tip" value="15"/>
+            <label className="tip-btn" htmlFor="input3">15%</label>
           </div>
           <div className="tip-amount">
-            <input type="radio" name="tip" value=".25"/>
-            <div className="tip-btn">25%</div>
+            <input type="radio" onInput={handleSelectedTip} id="input4" className="tip-input" name="tip" value="25"/>
+            <label className="tip-btn" htmlFor="input4">25%</label>
           </div>
           <div className="tip-amount">
-            <input type="radio" name="tip" value=".5"/>
-            <div className="tip-btn">50%</div>
+            <input type="radio" onInput={handleSelectedTip} id="input5" className="tip-input" name="tip" value="50"/>
+            <label className="tip-btn" htmlFor="input5">50%</label>
           </div>
-          <input type="text" className="number-input tip-custom"/>
+          <div className="custom-wrapper">
+            <input type="number" onInput={handleSelectedTip} id="custom" name="tip" className="number-input tip-custom" placeholder="Custom"/>
+            <label htmlFor="custom" className="tip-custom-label">Custom</label>
+          </div>
         </div>
       </div>
 
       <div className="label-group">
         <div className="label-wrapper">
           <label className="label" htmlFor="people">Number of People</label>
-          {/* <p className="error">{
-            showPeepsError ? "Please enter numbers only" : ""
-          }</p> */}
+          <p className="error">{
+            people === 0 ? "Can’t be zero" : ""
+          }</p>
         </div>
         <div className="number-wrapper">
-          <input type="text" className="number-input" id="people"/>
+          <input type="number" className={`number-input ${people === 0 ? 'number-error' : ""}`} id="people" onInput={(e) => setPeople(+e.target.value)} value={people}/>
           <img src={person} aria-hidden="true" className="icon" />
         </div>
       </div>
